@@ -1,267 +1,401 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
-  
-<style>
-/* COURT MODE — TENNIS PERFORMANCE */
-:root {
-  color-scheme: dark;
-  --red: #ff3045;
-  --bg: #090a0d;
-  --card: #14161b;
-  --white: #f5f5f7;
-  --muted: #969ba6;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 20px 14px 40px;
-  background:
-    linear-gradient(135deg, #241015 0%, transparent 35%),
-    var(--bg);
-  color: var(--white);
-  font-family: Arial, Helvetica, sans-serif;
-  letter-spacing: 0.2px;
-}
-
-body > * {
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-h1, h2, h3 {
-  color: var(--white);
-  font-weight: 900;
-  letter-spacing: -0.7px;
-}
-
-h1 {
-  font-size: clamp(30px, 7vw, 46px);
-  text-transform: uppercase;
-  border-left: 5px solid var(--red);
-  padding-left: 12px;
-}
-
-h2 {
-  margin-top: 28px;
-  font-size: 21px;
-  text-transform: uppercase;
-}
-
-p, label, small {
-  line-height: 1.6;
-}
-
-label {
-  display: block;
-  margin: 12px 0 6px;
-  color: #d9dbe1;
-  font-weight: 700;
-}
-
-input, select, textarea {
-  width: 100%;
-  padding: 13px;
-  border: 1px solid #343741;
-  border-radius: 10px;
-  background: #101116;
-  color: var(--white);
-  font: inherit;
-}
-
-input:focus, select:focus, textarea:focus {
-  outline: 2px solid var(--red);
-  border-color: var(--red);
-}
-
-button {
-  padding: 13px 17px;
-  border: 1px solid #ff3045;
-  border-radius: 10px;
-  background: var(--red);
-  color: white;
-  font-size: 14px;
-  font-weight: 900;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: transform 0.15s, filter 0.15s;
-}
-
-button:hover {
-  filter: brightness(1.12);
-  transform: translateY(-1px);
-}
-
-section, article, fieldset, .card, .stat,
-.stats, .skill, .session, form {
-  border-radius: 14px;
-}
-
-section, article, fieldset, .card, .stat,
-.skill, .session, form {
-  padding: 16px;
-  margin-top: 14px;
-  border: 1px solid #292c34;
-  background: var(--card);
-}
-
-fieldset {
-  min-width: 0;
-}
-
-legend {
-  color: var(--red);
-  font-weight: 900;
-}
-
-hr {
-  border: 0;
-  border-top: 1px solid #292c34;
-  margin: 22px 0;
-}
-
-progress {
-  width: 100%;
-  height: 10px;
-  accent-color: var(--red);
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: var(--card);
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-th, td {
-  padding: 11px 8px;
-  text-align: left;
-  border-bottom: 1px solid #292c34;
-}
-
-th {
-  color: var(--red);
-  text-transform: uppercase;
-  font-size: 12px;
-}
-
-a {
-  color: var(--red);
-}
-
-@media (max-width: 480px) {
-  body {
-    padding: 14px 10px 30px;
-  }
-
-  button {
-    max-width: 100%;
-  }
-
-  th, td {
-    padding: 8px 5px;
-    font-size: 12px;
-  }
-}
-</style>
-
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#123d2a">
-<title>Tennis Progress</title>
+<meta name="theme-color" content="#0a0a0c">
+<title>COURT MODE | Tennis Tracker</title>
 <style>
-body{font-family:Arial,sans-serif;background:#f2f6f2;color:#183525;margin:0}
-header{background:#123d2a;color:white;padding:25px 18px;border-radius:0 0 20px 20px}
-main{max-width:650px;margin:auto;padding:15px}
-.card{background:white;padding:17px;margin:12px 0;border-radius:15px;box-shadow:0 2px 8px #0001}
-h1{margin:5px 0}h2{font-size:19px}
-label{display:block;margin:12px 0 5px;font-weight:bold}
-input,select,textarea,button{font:inherit;padding:11px;border-radius:9px;box-sizing:border-box}
-input,select,textarea{width:100%;border:1px solid #ccd8ce}
-button{border:0;background:#176b45;color:white;font-weight:bold;width:100%;margin-top:12px}
-.skill{display:grid;grid-template-columns:1fr 90px;gap:10px;align-items:center}
-.skill label{font-weight:normal}
-.session{border-top:1px solid #ddd;padding:12px 0}
-small{color:#66756b}
+:root {
+  --bg:#09090b;
+  --panel:#131316;
+  --panel2:#1b1b20;
+  --red:#ff3045;
+  --white:#f7f7f8;
+  --muted:#92929d;
+  --line:#292930;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--white);
+  font-family:Arial,Helvetica,sans-serif;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{max-width:1100px;margin:auto;padding:22px 18px 50px}
+.topbar{display:flex;justify-content:space-between;align-items:center;
+  gap:12px;padding:8px 0 25px;border-bottom:1px solid var(--line)}
+.logo{font-size:22px;font-weight:1000;letter-spacing:1px}
+.logo span{color:var(--red)}
+.status{font-size:10px;font-weight:800;letter-spacing:1px;
+  color:#ff5364;border:1px solid #5b2028;padding:8px 10px;border-radius:6px}
+.hero{padding:35px 0 25px}
+.eyebrow{font-size:11px;letter-spacing:3px;color:var(--red);font-weight:900}
+h1{font-size:clamp(35px,7vw,66px);line-height:.98;
+  margin:12px 0;font-weight:1000;letter-spacing:-2px}
+h1 span{color:var(--red)}
+.subtitle{color:var(--muted);line-height:1.6;font-size:14px}
+.section-title{display:flex;justify-content:space-between;align-items:center;
+  gap:10px;margin:28px 0 14px}
+h2{font-size:16px;margin:0;font-weight:900;letter-spacing:.5px}
+.small{font-size:11px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);
+  border-radius:12px;padding:18px;min-width:0}
+.stat-label{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:1px}
+.stat-value{font-size:clamp(25px,4vw,36px);font-weight:1000;margin:12px 0 5px}
+.stat-value em{color:var(--red);font-style:normal}
+.stat-foot{font-size:11px;color:var(--muted)}
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:7px;margin:13px 0}
+label{font-size:11px;color:#c8c8d0;font-weight:800}
+input,select,textarea{
+  width:100%;background:#0d0d10;border:1px solid #34343d;color:white;
+  border-radius:7px;padding:12px;outline:none;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--red)}
+textarea{resize:vertical;min-height:75px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.primary{background:var(--red);color:white;border:0;border-radius:7px;
+  font-weight:900;padding:14px;width:100%;margin-top:8px}
+.primary:hover{background:#e51d34}
+.secondary{background:var(--panel2);border:1px solid var(--line);
+  color:white;border-radius:6px;padding:9px 12px;font-size:11px;font-weight:800}
+.skill-row{display:grid;grid-template-columns:1fr 110px;gap:12px;align-items:center}
+.skill-row select{padding:9px}
+.chart{display:flex;align-items:end;gap:10px;height:160px;
+  padding:18px 4px 0;border-bottom:1px solid var(--line)}
+.bar-wrap{flex:1;height:100%;display:flex;flex-direction:column;
+  justify-content:end;align-items:center;gap:8px;min-width:0}
+.bar{width:100%;max-width:42px;background:var(--red);border-radius:5px 5px 0 0;
+  min-height:3px;transition:height .2s}
+.bar-label{font-size:10px;color:var(--muted)}
+.bar-value{font-size:10px;font-weight:900}
+.session{display:flex;justify-content:space-between;align-items:center;
+  gap:12px;border-bottom:1px solid var(--line);padding:15px 0}
+.session:last-child{border-bottom:0}
+.session-name{font-weight:900;font-size:13px}
+.session-meta{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6}
+.score{font-size:20px;font-weight:1000;color:var(--red);white-space:nowrap}
+.delete{display:block;margin-top:6px;background:none;border:0;
+  color:var(--muted);font-size:10px;text-align:right;padding:3px}
+.empty{color:var(--muted);font-size:13px;text-align:center;padding:28px 8px}
+.footer{margin-top:35px;padding-top:18px;border-top:1px solid var(--line);
+  color:var(--muted);font-size:10px;display:flex;justify-content:space-between;gap:10px}
+@media(max-width:650px){
+  .app{padding:15px 13px 35px}
+  .stats{grid-template-columns:1fr 1fr;gap:9px}
+  .card{padding:14px}
+  .layout{grid-template-columns:1fr}
+  .hero{padding-top:28px}
+  .topbar{padding-bottom:18px}
+}
 </style>
 </head>
 <body>
-<header>
-  <div>🎾 MON CARNET DE TENNIS</div>
-  <h1>Tennis Progress</h1>
-  <div>Chaque séance me fait progresser.</div>
-</header>
-<main>
-  <div class="card">
-    <h2>📊 Mes statistiques</h2>
-    <p>Séances enregistrées : <b id="total">0</b></p>
-    <p>Temps total : <b id="time">0</b> minutes</p>
+<div class="app">
+  <header class="topbar">
+    <div class="logo">COURT<span> MODE</span></div>
+    <div class="status">● TENNIS TRACKER</div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">TRAIN. TRACK. IMPROVE.</div>
+    <h1>NO EXCUSES.<br><span>JUST TENNIS.</span></h1>
+    <p class="subtitle">Ton entraînement. Tes statistiques. Ta progression.<br>
+      Chaque séance compte.</p>
+  </section>
+
+  <div class="section-title">
+    <h2>TES STATISTIQUES</h2>
+    <span class="small">TES DONNÉES</span>
   </div>
 
-  <div class="card">
-    <h2>➕ Ajouter une séance</h2>
-    <form id="form">
-      <label for="date">Date</label>
-      <input id="date" type="date" required>
-      <label for="duration">Durée (minutes)</label>
-      <input id="duration" type="number" value="90" min="1" required>
-      <label for="type">Type de séance</label>
-      <select id="type">
-        <option>Entraînement</option><option>Match</option>
-        <option>Service</option><option>Déplacements</option>
-      </select>
-      <h3>Mes notes sur 5</h3>
-      <div id="skills"></div>
-      <label for="notes">Ce que je veux retenir</label>
-      <textarea id="notes" placeholder="Ex. : travailler mon service"></textarea>
-      <button type="submit">Enregistrer ma séance</button>
-    </form>
+  <section class="stats">
+    <div class="card">
+      <div class="stat-label">SÉANCES</div>
+      <div class="stat-value" id="totalSessions">0</div>
+      <div class="stat-foot">Enregistrées</div>
+    </div>
+    <div class="card">
+      <div class="stat-label">TEMPS DE JEU</div>
+      <div class="stat-value" id="totalHours">0<em> h</em></div>
+      <div class="stat-foot">Au total</div>
+    </div>
+    <div class="card">
+      <div class="stat-label">DURÉE MOYENNE</div>
+      <div class="stat-value" id="avgDuration">0<em> min</em></div>
+      <div class="stat-foot">Par séance</div>
+    </div>
+    <div class="card">
+      <div class="stat-label">NIVEAU MOYEN</div>
+      <div class="stat-value" id="avgScore">—</div>
+      <div class="stat-foot">Sur 10</div>
+    </div>
+  </section>
+
+  <div class="layout">
+    <section>
+      <div class="section-title"><h2>+ NOUVELLE SÉANCE</h2></div>
+      <div class="card">
+        <form id="sessionForm">
+          <div class="field">
+            <label for="sessionName">NOM DE LA SÉANCE</label>
+            <input id="sessionName" maxlength="60" placeholder="Ex. : entraînement lift" required>
+          </div>
+          <div class="two">
+            <div class="field">
+              <label for="sessionDate">DATE</label>
+              <input id="sessionDate" type="date" required>
+            </div>
+            <div class="field">
+              <label for="duration">DURÉE (MIN)</label>
+              <input id="duration" type="number" min="1" max="600" value="90" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="intensity">INTENSITÉ</label>
+            <select id="intensity">
+              <option value="1">1 — Tranquille</option>
+              <option value="2">2 — Modérée</option>
+              <option value="3" selected>3 — Intense</option>
+              <option value="4">4 — Très intense</option>
+              <option value="5">5 — Match difficile</option>
+            </select>
+          </div>
+          <div class="section-title"><h2>TES COMPÉTENCES</h2></div>
+          <div class="field skill-row">
+            <label for="forehand">COUP DROIT</label>
+            <select id="forehand">
+              <option value="1">1/10</option><option value="2">2/10</option>
+              <option value="3">3/10</option><option value="4">4/10</option>
+              <option value="5" selected>5/10</option><option value="6">6/10</option>
+              <option value="7">7/10</option><option value="8">8/10</option>
+              <option value="9">9/10</option><option value="10">10/10</option>
+            </select>
+          </div>
+          <div class="field skill-row">
+            <label for="backhand">REVERS</label>
+            <select id="backhand">
+              <option value="1">1/10</option><option value="2">2/10</option>
+              <option value="3">3/10</option><option value="4">4/10</option>
+              <option value="5" selected>5/10</option><option value="6">6/10</option>
+              <option value="7">7/10</option><option value="8">8/10</option>
+              <option value="9">9/10</option><option value="10">10/10</option>
+            </select>
+          </div>
+          <div class="field skill-row">
+            <label for="serve">SERVICE</label>
+            <select id="serve">
+              <option value="1">1/10</option><option value="2">2/10</option>
+              <option value="3">3/10</option><option value="4">4/10</option>
+              <option value="5" selected>5/10</option><option value="6">6/10</option>
+              <option value="7">7/10</option><option value="8">8/10</option>
+              <option value="9">9/10</option><option value="10">10/10</option>
+            </select>
+          </div>
+          <div class="field skill-row">
+            <label for="movement">DÉPLACEMENTS</label>
+            <select id="movement">
+              <option value="1">1/10</option><option value="2">2/10</option>
+              <option value="3">3/10</option><option value="4">4/10</option>
+              <option value="5" selected>5/10</option><option value="6">6/10</option>
+              <option value="7">7/10</option><option value="8">8/10</option>
+              <option value="9">9/10</option><option value="10">10/10</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="notes">NOTES (FACULTATIF)</label>
+            <textarea id="notes" maxlength="500" placeholder="Ce qui était bien, ce que tu veux travailler..."></textarea>
+          </div>
+          <button class="primary" type="submit">+ ENREGISTRER LA SÉANCE</button>
+        </form>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <h2>PROGRESSION</h2>
+        <span class="small">7 DERNIÈRES SÉANCES</span>
+      </div>
+      <div class="card">
+        <div class="small">SCORE MOYEN DES COMPÉTENCES / 10</div>
+        <div class="chart" id="chart">
+          <div class="empty">Enregistre ta première séance pour afficher ton graphique.</div>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <h2>HISTORIQUE</h2>
+        <span class="small" id="historyCount">0 SÉANCE</span>
+      </div>
+      <div class="card">
+        <div id="history"><div class="empty">Aucune séance pour le moment.<br>À toi de jouer !</div></div>
+        <button class="secondary" id="exportBtn" type="button" style="width:100%;margin-top:12px">
+          EXPORTER MES DONNÉES
+        </button>
+      </div>
+    </section>
   </div>
 
-  <div class="card">
-    <h2>📈 Mon historique</h2>
-    <div id="history">Pas encore de séance.</div>
-  </div>
-</main>
+  <footer class="footer">
+    <span>COURT MODE © TENNIS TRACKER</span>
+    <span>FOCUS. DISCIPLINE. PROGRESSION.</span>
+  </footer>
+</div>
+
 <script>
-const names=["Coup droit","Revers","Service","Volée","Déplacements","Régularité"];
-const skills=document.getElementById("skills");
-names.forEach((name,i)=>{
-  skills.insertAdjacentHTML("beforeend",
-    `<div class="skill"><label for="s${i}">${name}</label>
-    <select id="s${i}">${[1,2,3,4,5].map(n=>`<option>${n}</option>`).join("")}</select></div>`);
-});
-document.getElementById("date").value=new Date().toISOString().slice(0,10);
-let sessions=[];
-try{sessions=JSON.parse(localStorage.getItem("tennisSessions")||"[]")}catch(e){}
-function render(){
-  document.getElementById("total").textContent=sessions.length;
-  document.getElementById("time").textContent=sessions.reduce((sum,s)=>sum+s.duration,0);
-  document.getElementById("history").innerHTML=sessions.length?sessions.map(s=>
-    `<div class="session"><b>${s.date} — ${s.type}</b><br><small>${s.duration} minutes</small><p>${s.scores.join(" · ")} / 5</p><p>${s.notes.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}</p></div>`
-  ).join(""):"Pas encore de séance.";
+const STORAGE_KEY = "courtModeSessionsV1";
+const $ = id => document.getElementById(id);
+let sessions = [];
+
+try {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  sessions = saved ? JSON.parse(saved) : [];
+  if (!Array.isArray(sessions)) sessions = [];
+} catch (e) {
+  sessions = [];
 }
-document.getElementById("form").addEventListener("submit",e=>{
-  e.preventDefault();
-  sessions.unshift({
-    date:document.getElementById("date").value,
-    duration:Number(document.getElementById("duration").value),
-    type:document.getElementById("type").value,
-    scores:names.map((_,i)=>document.getElementById("s"+i).value),
-    notes:document.getElementById("notes").value
+
+function localDate() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
+$("sessionDate").value = localDate();
+
+function save() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+  } catch (e) {
+    alert("Impossible d'enregistrer les données sur ce navigateur.");
+  }
+}
+
+function averageSkills(s) {
+  return (Number(s.forehand) + Number(s.backhand) +
+    Number(s.serve) + Number(s.movement)) / 4;
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+  })[char]);
+}
+
+function formatDate(date) {
+  if (!date) return "Date inconnue";
+  const d = new Date(date + "T12:00:00");
+  return Number.isNaN(d.getTime()) ? date :
+    d.toLocaleDateString("fr-FR", {day:"2-digit",month:"short",year:"numeric"});
+}
+
+function render() {
+  const count = sessions.length;
+  const minutes = sessions.reduce((sum,s) => sum + Number(s.duration || 0), 0);
+  const averageDuration = count ? Math.round(minutes / count) : 0;
+  const averageScore = count
+    ? sessions.reduce((sum,s) => sum + averageSkills(s), 0) / count
+    : null;
+
+  $("totalSessions").textContent = count;
+  $("totalHours").innerHTML = `${(minutes / 60).toFixed(1)}<em> h</em>`;
+  $("avgDuration").innerHTML = `${averageDuration}<em> min</em>`;
+  $("avgScore").textContent = averageScore === null ? "—" : averageScore.toFixed(1);
+
+  $("historyCount").textContent = `${count} SÉANCE${count > 1 ? "S" : ""}`;
+
+  const chartSessions = [...sessions]
+    .sort((a,b) => a.date.localeCompare(b.date) || a.createdAt-b.createdAt)
+    .slice(-7);
+
+  if (!chartSessions.length) {
+    $("chart").innerHTML = '<div class="empty">Enregistre ta première séance pour afficher ton graphique.</div>';
+  } else {
+    $("chart").innerHTML = chartSessions.map(s => {
+      const score = averageSkills(s);
+      return `<div class="bar-wrap">
+        <div class="bar-value">${score.toFixed(1)}</div>
+        <div class="bar" style="height:${score*10}%"></div>
+        <div class="bar-label">${escapeHTML(s.date.slice(5).replace("-","/"))}</div>
+      </div>`;
+    }).join("");
+  }
+
+  const recent = [...sessions].sort((a,b) =>
+    b.date.localeCompare(a.date) || b.createdAt-a.createdAt
+  );
+
+  if (!recent.length) {
+    $("history").innerHTML = '<div class="empty">Aucune séance pour le moment.<br>À toi de jouer !</div>';
+  } else {
+    $("history").innerHTML = recent.map(s => `
+      <div class="session">
+        <div>
+          <div class="session-name">${escapeHTML(s.name)}</div>
+          <div class="session-meta">${escapeHTML(formatDate(s.date))} · ${Number(s.duration)} min<br>
+          Coup droit ${Number(s.forehand)}/10 · Revers ${Number(s.backhand)}/10<br>
+          Service ${Number(s.serve)}/10 · Déplacements ${Number(s.movement)}/10
+          ${s.notes ? "<br>"+escapeHTML(s.notes) : ""}</div>
+          <button class="delete" type="button" data-delete="${escapeHTML(s.id)}">SUPPRIMER</button>
+        </div>
+        <div class="score">${averageSkills(s).toFixed(1)}<span style="font-size:11px">/10</span></div>
+      </div>
+    `).join("");
+  }
+}
+
+$("sessionForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const duration = Number($("duration").value);
+  if (!duration || duration < 1 || duration > 600) {
+    alert("Entre une durée entre 1 et 600 minutes.");
+    return;
+  }
+
+  sessions.push({
+    id: String(Date.now()) + Math.random().toString(16).slice(2),
+    createdAt: Date.now(),
+    name: $("sessionName").value.trim(),
+    date: $("sessionDate").value,
+    duration,
+    intensity: Number($("intensity").value),
+    forehand: Number($("forehand").value),
+    backhand: Number($("backhand").value),
+    serve: Number($("serve").value),
+    movement: Number($("movement").value),
+    notes: $("notes").value.trim()
   });
-  localStorage.setItem("tennisSessions",JSON.stringify(sessions));
-  document.getElementById("notes").value="";
+
+  save();
+  render();
+  $("sessionName").value = "";
+  $("notes").value = "";
+  $("sessionDate").value = localDate();
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+
+$("history").addEventListener("click", event => {
+  const button = event.target.closest("[data-delete]");
+  if (!button) return;
+  if (!confirm("Supprimer cette séance ?")) return;
+  sessions = sessions.filter(s => s.id !== button.dataset.delete);
+  save();
   render();
 });
+
+$("exportBtn").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(sessions,null,2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "court-mode-sessions.json";
+  link.click();
+  URL.revokeObjectURL(url);
+});
+
 render();
 </script>
 </body>
 </html>
+
