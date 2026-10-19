@@ -1,0 +1,97 @@
+
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123d2a">
+<title>Tennis Progress</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f2f6f2;color:#183525;margin:0}
+header{background:#123d2a;color:white;padding:25px 18px;border-radius:0 0 20px 20px}
+main{max-width:650px;margin:auto;padding:15px}
+.card{background:white;padding:17px;margin:12px 0;border-radius:15px;box-shadow:0 2px 8px #0001}
+h1{margin:5px 0}h2{font-size:19px}
+label{display:block;margin:12px 0 5px;font-weight:bold}
+input,select,textarea,button{font:inherit;padding:11px;border-radius:9px;box-sizing:border-box}
+input,select,textarea{width:100%;border:1px solid #ccd8ce}
+button{border:0;background:#176b45;color:white;font-weight:bold;width:100%;margin-top:12px}
+.skill{display:grid;grid-template-columns:1fr 90px;gap:10px;align-items:center}
+.skill label{font-weight:normal}
+.session{border-top:1px solid #ddd;padding:12px 0}
+small{color:#66756b}
+</style>
+</head>
+<body>
+<header>
+  <div>🎾 MON CARNET DE TENNIS</div>
+  <h1>Tennis Progress</h1>
+  <div>Chaque séance me fait progresser.</div>
+</header>
+<main>
+  <div class="card">
+    <h2>📊 Mes statistiques</h2>
+    <p>Séances enregistrées : <b id="total">0</b></p>
+    <p>Temps total : <b id="time">0</b> minutes</p>
+  </div>
+
+  <div class="card">
+    <h2>➕ Ajouter une séance</h2>
+    <form id="form">
+      <label for="date">Date</label>
+      <input id="date" type="date" required>
+      <label for="duration">Durée (minutes)</label>
+      <input id="duration" type="number" value="90" min="1" required>
+      <label for="type">Type de séance</label>
+      <select id="type">
+        <option>Entraînement</option><option>Match</option>
+        <option>Service</option><option>Déplacements</option>
+      </select>
+      <h3>Mes notes sur 5</h3>
+      <div id="skills"></div>
+      <label for="notes">Ce que je veux retenir</label>
+      <textarea id="notes" placeholder="Ex. : travailler mon service"></textarea>
+      <button type="submit">Enregistrer ma séance</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>📈 Mon historique</h2>
+    <div id="history">Pas encore de séance.</div>
+  </div>
+</main>
+<script>
+const names=["Coup droit","Revers","Service","Volée","Déplacements","Régularité"];
+const skills=document.getElementById("skills");
+names.forEach((name,i)=>{
+  skills.insertAdjacentHTML("beforeend",
+    `<div class="skill"><label for="s${i}">${name}</label>
+    <select id="s${i}">${[1,2,3,4,5].map(n=>`<option>${n}</option>`).join("")}</select></div>`);
+});
+document.getElementById("date").value=new Date().toISOString().slice(0,10);
+let sessions=[];
+try{sessions=JSON.parse(localStorage.getItem("tennisSessions")||"[]")}catch(e){}
+function render(){
+  document.getElementById("total").textContent=sessions.length;
+  document.getElementById("time").textContent=sessions.reduce((sum,s)=>sum+s.duration,0);
+  document.getElementById("history").innerHTML=sessions.length?sessions.map(s=>
+    `<div class="session"><b>${s.date} — ${s.type}</b><br><small>${s.duration} minutes</small><p>${s.scores.join(" · ")} / 5</p><p>${s.notes.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}</p></div>`
+  ).join(""):"Pas encore de séance.";
+}
+document.getElementById("form").addEventListener("submit",e=>{
+  e.preventDefault();
+  sessions.unshift({
+    date:document.getElementById("date").value,
+    duration:Number(document.getElementById("duration").value),
+    type:document.getElementById("type").value,
+    scores:names.map((_,i)=>document.getElementById("s"+i).value),
+    notes:document.getElementById("notes").value
+  });
+  localStorage.setItem("tennisSessions",JSON.stringify(sessions));
+  document.getElementById("notes").value="";
+  render();
+});
+render();
+</script>
+</body>
+</html>
